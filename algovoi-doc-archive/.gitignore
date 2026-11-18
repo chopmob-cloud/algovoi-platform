@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+*.tmp
+.DS_Store
+
+# Archive runtime state: archive-data/ holds the bootstrapped signing + ML-KEM key file
+# (archive-key.json) in plaintext. It is local scratch state, never source. Committing it would
+# publish live keys, so the whole directory is ignored rather than just the json.
+archive-data/

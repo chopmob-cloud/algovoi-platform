@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-federation-validator"
+version = "0.1.2"
+description = "Cross-issuer ZKP federation token validator — compose independent PQC credentials without a shared trust root."
+readme = "README.md"
+license = { text = "BUSL-1.1" }
+authors = [
+    { name = "AlgoVoi", email = "hello@algovoi.co.uk" },
+]
+keywords = [
+    "algovoi", "federation", "zkp", "zero-knowledge", "pqc", "post-quantum",
+    "falcon-1024", "ml-dsa", "x402", "agentic-payments", "credential-binding",
+    "nist-fips-204", "nist-fips-206",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+verify = [
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+serve = [
+    "fastapi>=0.111,<1.0",
+    "uvicorn[standard]>=0.29,<1.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "build>=1.2",
+    "twine>=5.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/federation-validator"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_federation_validator"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/LICENSE",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:pydantic.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "RUF"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+disallow_any_generics = true

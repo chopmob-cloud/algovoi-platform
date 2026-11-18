@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-compliance-gate"
+version = "0.2.4"
+description = "Compliance Gate v2 — a post-quantum, no-PII compliance decision engine. Runs a composite of typed checks (sanctions/PEP/jurisdiction/risk/travel-rule), folds them by a content-addressed policy, and emits a verdict that is policy-bound (rotation-detectable), action-bound, hash-chained into an append-only decision ledger, Falcon-1024 signed (optional ML-DSA-65 co-signature), CCC-ingestable, and offline-verifiable. The origination side of Proofs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["compliance", "screening", "sanctions", "aml", "kyc", "post-quantum", "compliance-receipt", "no-pii"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "substrate2>=2.0.0,<3.0",
+    "fastapi>=0.110,<1.0",
+    "pydantic>=2.5,<3.0",
+    "rfc8785>=0.1.4",
+    "pqcrypto>=0.4.0,<1.0",
+]
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27,<1.0"]
+
+[project.scripts]
+algovoi-compliance-gate-serve = "algovoi_compliance_gate.serve:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_compliance_gate"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"THIRD-PARTY-NOTICES.md" = "algovoi_compliance_gate/THIRD-PARTY-NOTICES.md"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

@@ -1,0 +1,47 @@
+{
+  "artifact_id": "urn:algovoi:validation:SAMPLE",
+  "canonicalization": "RFC 8785 (JCS)",
+  "control_mapping_ref": "control_mapping.json",
+  "created_at": "2026-06-15T18:07:35Z",
+  "files": [
+    {
+      "name": "iq.json",
+      "sha256": "f04d2e626f4aa0fe0f25f1873d3f6f47381f487b75be84ee1d6385e34a72d777"
+    },
+    {
+      "name": "oq.json",
+      "sha256": "7a38ef71f528181c7c311ef2e75bf4dd79e34f498da6b7b952937748152bb2bb"
+    },
+    {
+      "name": "pq.json",
+      "sha256": "6bb9b071d7866d61af6a9301d530e68571bf92653643c328a501f3ed7c0e0c19"
+    },
+    {
+      "name": "control_mapping.json",
+      "sha256": "b15ad20f6ecdadcb220b0986d6b2c100e8c7c852afcb4995c0e34c55aa4418bd"
+    },
+    {
+      "name": "public_key.b64",
+      "sha256": "ccc68d531b8077169c4c3f6e59900f6d7caa5fa5bbbf648e9bd58f4a5e4f397e"
+    },
+    {
+      "name": "verify_validation_pack.py",
+      "sha256": "2a55772dbdc7548c76cdd4f03d87368b054b870f9c8d74788a298a4664a4ec40"
+    },
+    {
+      "name": "VERIFY.md",
+      "sha256": "17118d94f25ea50856bfc374371caed012678238b9e26905ab30ef475ba81712"
+    }
+  ],
+  "generator": "algovoi-records-vault",
+  "hash_alg": "SHA-256",
+  "kid": "6779adf609f7d897",
+  "schema_version": "algovoi-validation-pack/0.1",
+  "sections": [
+    "iq.json",
+    "oq.json",
+    "pq.json"
+  ],
+  "signature": "falcon1024:6779adf609f7d897:OvrX4op3SdkgruXBAb_Q34HL8Xe9TIuItplS2gdgU-MqsLWV783ZdZy-ROrsbLGQWbAMYitAQFgazRoJTk502S8c_42Bpca1quZ8ldkcJladxnuklXTOvSAq6mJwhSxpM7cOQ15ZTX97uPI8WpKpE1-JsxI9bNJq7jNxUPguur6nkm3r1pD02VyrdgnmuyWFpol9Aku1y4ssNJIyCz2f-canQ5rJ_bnFrz04X_vvAs8u35NhBS2Y9-vK7cXjjNaPDMWoCURQkdnwzeXTsMSRWbTCkJXjofAIYx7NqwxGE1CexW_emDp9ZDatAae8LzJ2GyCQqMo61wd1ZqjnSLbtFc70oRnQwku_MRBq094avFDhzNCPcYlWtcVVGLiUdqDcZk9zCc8g0SgzFKLGxQ6PC2f9rnnvOvhcAN0lUdTP2aTNq4aueNMrLQoN65kmCoOoy73JFR05ebB9W2U2yv_OGkxUTQU3VTceWiZvTgouZjQ3KdxJqfdzNUOHrtCXKVwsk9oifptqbmNzmo4sB7cORJJjhiv9GMeiALWinpPhJdsHE5qTextWbRbD_rC0iQelUY0j1mzt_g1Ywwtw-TffSMy5DW7Zh_ohh79mMDoM80bE7mJztJJqOSnyxrNPqWxHEUFVfVd8RKpizj9qOetX8SkBPp7Tpl6Wfi6Xmq7ETn8A0Nqm6jimp0Jdpj5ohz221bKmk1WQXu7ZT6-aS763ySUxYuiVRSiD7kOYPn1lnt1d4MPAhrZL_ZUAsiPfCtDnG907Lq3oFvi7dYchjap-S4kPn_7EpldnkTf7N2bLIZPT6W0YWCtWhCwnGpDVsKyGNTCkaNUWCVGoHhelfG9fduC_dJPMRx1vdnqIIgGTSqG5VDJ26CndF9DK2NxoTwTH5fhQtW8GVJK-ATrfkZq-_XC7zCMxzCLdoWCVXhZMU-Ow2qaS1MWbx05Pvni0uz5i5HKJ7Dyltee7XZ_QXHUcNFzSvVSDXs0syid673hjeRjUCKU5yDWLsIxLMiiSlMtp_5n9wvmlTzIsvIPbhEx5Mu4FVTFydQ_ObYNHURY420QW395R4oVjiBOwVNoCWTph1_SJTZSgVWdafM4_-Lq827tw83cgRB10_iCnOYPca98VEUhlK2RERJUcx15dqyjPvrs_BISyqd9vJshxdiihF1k202Ge3K9MAlMBcqxHcwUq3a4b-voAbT2NNqE_--VqUlpENFjIEXbDokjpdjRlpzO-x9Z8PliWqdRw40yYR2hMKSaGQTAvdUamucM7CvocnVXIJEPzgCVxJxma4UcLLCERTjk4OXIvE0Y6vyMVsVPavrdVLmcaxzVm_oiukTnA-5-ERwDSQ-_5vNZ7nKXRjrT8xiJ0i-TnCxlRkjiCPFpSZZWdxne46lXBAyOftXivzRL2S37eTh8_pgaNHXSVtO9bhzsyHESA4nVZDUpbZcXqlLd7UV5ctR_NUNCX9h6gxyHMr0J403tpw_degS5pjta44zYvEpvGNJP5glUbfGVMJhc9PZj8DNjp8tjSCTArM2YfCRxH3QzlZgCeT5UDiIqzc8pC6ZEn1gxonOy8f8b9FUbSbGRJ0qj6H_xNwqNAgSlMWVX-synyW0KfIuaa5fTXcF5GG4rCo6b2cIOb6VyDTMy9HT-9UqFpt0BbjVOC_qIRODSRQ8PJxeYT_to3X95LtsLOMeo9mg",
+  "signature_suite": "falcon1024"
+}

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-gateway-core"
+version = "0.1.6"
+description = "Self-hostable, chain-agnostic payment gateway engine. Create payment intents, watch settlement through per-chain add-ons, and emit signed, no-PII, CCC-ingestable settlement receipts. Outbound custody payouts can be bound to an authorizing Spend Guardrail decision (authorized_by_ref). Crypto core is substrate2."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+dependencies = [
+  "substrate2>=2.0.0,<3.0",
+  "pydantic>=2,<3.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/gateway-core"
+
+[project.optional-dependencies]
+serve = ["fastapi>=0.110,<1.0", "uvicorn>=0.27,<1.0"]
+# Test deps so the suite is self-runnable in a clean room (`pip install .[test]` then pytest).
+# pqcrypto (<1.0 per the falcon-1024 removal) backs substrate2's PQC signing used by the fixtures;
+# pytest-asyncio + asyncio_mode below let the single async test collect without a global plugin.
+test = ["pytest>=8.0", "pytest-asyncio>=0.23", "pqcrypto>=0.4,<1.0"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_gateway_core"]

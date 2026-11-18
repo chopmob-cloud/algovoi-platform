@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-records-vault-importer"
+version = "0.3.1"
+description = "AlgoVoi Records Vault volume importer add-on. Import existing document estates into the PQC Verifiable Archive with a switchable signing strategy: falcon (one signature per document, granular) or merkle (one signature per batch, ~300x throughput) with offline per-document inclusion proofs. Commercial add-on; runtime-licensed, fail-closed."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [
+  { name = "AlgoVoi", email = "chopmob@gmail.com" },
+]
+keywords = ["records-vault", "bulk-import", "migration", "merkle", "falcon", "post-quantum", "compliance", "add-on"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Legal Industry",
+  "Intended Audience :: Healthcare Industry",
+  "License :: Other/Proprietary License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = [
+  "algovoi-records-vault>=0.5.0",
+  "algovoi-doc-archive>=0.1.1",
+  "substrate2>=2.0.0,<3.0",
+  "pqcrypto>=0.4.0,<1.0",
+  "rfc8785>=0.1.4",
+]
+
+[project.scripts]
+algovoi-rv-import = "algovoi_records_vault_importer.cli:main"
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/records-vault-importer"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_records_vault_importer*"]

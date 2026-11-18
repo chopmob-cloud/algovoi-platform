@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-retention-app"
+version = "0.1.1"
+description = "AlgoVoi Retention App -- stateful payment-receipt retention service. Auto-maintains per-issuer hash-linked retention chains and exports Falcon-1024 signed, offline-verifiable regulator evidence packs. MiCA Art. 68(9), DORA Art. 17, AMLR Art. 77."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["retention", "compliance", "mica", "dora", "amlr", "audit", "evidence", "agentic-payments"]
+
+dependencies = [
+  "substrate2>=2.0.0,<3.0",
+  "algovoi-retention-chain>=0.3.0",
+  "fastapi>=0.110,<1.0",
+  "pydantic>=2,<3.0",
+  "rfc8785>=0.1.4",
+  "pqcrypto>=0.3.4,<1.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/retention-app"
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+postgres = ["asyncpg>=0.29", "sqlalchemy>=2"]
+test = ["pytest>=7", "httpx>=0.27,<1.0"]
+
+[project.scripts]
+algovoi-retention-app-serve = "algovoi_retention_app.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_retention_app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

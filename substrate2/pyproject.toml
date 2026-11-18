@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "substrate2"
+license = { text = "BUSL-1.1" }
+version = "2.0.0"
+description = "AlgoVoi Substrate 2 - post-quantum signed receipts, federation and offline verification (BUSL-1.1, free production use)."
+requires-python = ">=3.11"
+classifiers = ["Topic :: Security :: Cryptography", "Programming Language :: Python :: 3"]
+dependencies = [
+    "rfc8785>=0.1.4",
+    "cryptography>=50.0.0",
+]
+
+[project.optional-dependencies]
+pqc = ["pqcrypto>=0.4.0,<1.0"]
+zkp = ["pqcrypto>=0.4.0,<1.0", "algovoi-bpverify>=0.1.0"]
+# RFC 3161 trusted timestamps. asn1crypto is pure-Python with no compiled deps; it is
+# required rather than convenient, because `cryptography` cannot parse a TimeStampToken
+# (its pkcs7 module only builds and envelopes). Kept optional so the base install stays
+# rfc8785 + cryptography.
+timestamp = ["asn1crypto>=1.5"]
+
+# Deliberately NO [project.urls], NO publish workflow, NO entry points to public indexes.
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/substrate2"]
+# Bundled conformance vectors ship inside the installer so the gate binds from
+# first boot. Listed explicitly so they are never dropped by ignore rules.
+artifacts = [
+    "src/substrate2/conformance/_bundled_vectors/**/*.json",
+    "src/substrate2/conformance/_bundled_vectors/**/*.b64",
+    "src/substrate2/conformance/_bundled_vectors/**/*.py",
+    # The bundled vector sets are Apache-2.0 and carry their own LICENSE/README. Ship them:
+    # redistributing the vectors without their licence and attribution would breach the
+    # terms they are published under (Apache-2.0 section 4).
+    "src/substrate2/conformance/_bundled_vectors/LICENSE",
+    "src/substrate2/conformance/_bundled_vectors/NOTICE",
+    "src/substrate2/conformance/_bundled_vectors/**/LICENSE",
+    "src/substrate2/conformance/_bundled_vectors/**/*.md",
+]

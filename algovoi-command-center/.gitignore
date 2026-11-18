@@ -1,0 +1,11 @@
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+evidence-ingest/
+# runtime / test byproducts and secrets — never commit
+command-center-key.json
+command-center-service-token
+command-center.db
+command-center-containers/

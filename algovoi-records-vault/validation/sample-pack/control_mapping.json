@@ -1,0 +1,34 @@
+{
+  "mappings": [
+    {
+      "coverage": "Installation Qualification: component versions, SBOM and configuration fingerprint, signed",
+      "framework": "FDA 21 CFR Part 11",
+      "requirement_id": "11.10(a)",
+      "section": "IQ"
+    },
+    {
+      "coverage": "Operational Qualification: conformance and test-suite results, captured and signed",
+      "framework": "FDA 21 CFR Part 11",
+      "requirement_id": "11.10(a)",
+      "section": "OQ"
+    },
+    {
+      "coverage": "Performance Qualification: production integrity-attestation chain head",
+      "framework": "FDA 21 CFR Part 11",
+      "requirement_id": "11.10(a)",
+      "section": "PQ"
+    },
+    {
+      "coverage": "Falcon-1024 signed, JCS-canonical, offline-verifiable evidence",
+      "framework": "ALCOA+",
+      "requirement_id": "Original/Accurate/Enduring",
+      "section": "ALL"
+    },
+    {
+      "coverage": "continuous integrity attestation of the system of record",
+      "framework": "SOC 2",
+      "requirement_id": "CC7",
+      "section": "PQ"
+    }
+  ]
+}

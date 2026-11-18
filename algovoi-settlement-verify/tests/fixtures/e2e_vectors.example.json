@@ -1,0 +1,66 @@
+{
+  "_README": "Copy this file to e2e_vectors.json (same dir) and fill in REAL settled txs. Run with: ALGOVOI_E2E=1 PYTHONPATH=src python -m pytest tests/test_e2e_live.py -v. Remove _skip from a vector once its fields are real. Amounts are in 6-dp microunits. network must be a NetworkEnum value (e.g. base_mainnet, algorand_mainnet, hedera_mainnet, stellar_mainnet, solana_mainnet, voi_mainnet, tempo_mainnet, arc_testnet).",
+
+  "rpc": {
+    "_note": "Override only what you need; unset fields use the SDK's public defaults. Use production-grade RPC for real runs.",
+    "base_rpc_url": "https://mainnet.base.org",
+    "solana_rpc_url": "https://api.mainnet-beta.solana.com",
+    "algorand_node_url": "https://mainnet-api.algonode.cloud",
+    "algorand_indexer_url": "https://mainnet-idx.algonode.cloud",
+    "hedera_mirror_node_url": "https://mainnet-public.mirrornode.hedera.com",
+    "stellar_horizon_url": "https://horizon.stellar.org"
+  },
+
+  "vectors": [
+    {
+      "_skip": true,
+      "label": "base mainnet USDC 1.00 -> receiver",
+      "network": "base_mainnet",
+      "tx_id": "0xREPLACE_WITH_REAL_64_HEX_TX_HASH",
+      "expected_amount_microalgos": 1000000,
+      "expected_receiver": "0xREPLACE_RECIPIENT_ADDRESS",
+      "expected_asset_id": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "expect_verified": true
+    },
+    {
+      "_skip": true,
+      "label": "algorand mainnet USDC 1.00",
+      "network": "algorand_mainnet",
+      "tx_id": "REPLACE_WITH_REAL_ALGORAND_TXID",
+      "expected_amount_microalgos": 1000000,
+      "expected_receiver": "REPLACE_ALGORAND_ADDRESS",
+      "expected_asset_id": 31566704,
+      "expect_verified": true
+    },
+    {
+      "_skip": true,
+      "label": "stellar mainnet USDC 1.00",
+      "network": "stellar_mainnet",
+      "tx_id": "REPLACE_WITH_REAL_STELLAR_TXHASH",
+      "expected_amount_microalgos": 1000000,
+      "expected_receiver": "REPLACE_STELLAR_ACCOUNT",
+      "expected_asset_id": "USDC:GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN",
+      "expect_verified": true
+    },
+    {
+      "_skip": true,
+      "label": "hedera mainnet USDC 1.00",
+      "network": "hedera_mainnet",
+      "tx_id": "REPLACE_WITH_REAL_HEDERA_TXID",
+      "expected_amount_microalgos": 1000000,
+      "expected_receiver": "REPLACE_HEDERA_ACCOUNT_ID",
+      "expected_asset_id": 456858,
+      "expect_verified": true
+    },
+    {
+      "_skip": true,
+      "label": "negative control — wrong receiver must FAIL",
+      "network": "base_mainnet",
+      "tx_id": "0xREPLACE_WITH_REAL_64_HEX_TX_HASH",
+      "expected_amount_microalgos": 1000000,
+      "expected_receiver": "0x000000000000000000000000000000000000dEaD",
+      "expected_asset_id": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "expect_verified": false
+    }
+  ]
+}

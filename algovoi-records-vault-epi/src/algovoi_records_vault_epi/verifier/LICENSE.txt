@@ -1,0 +1,39 @@
+AlgoVoi .epi Verifier — Redistribution Licence
+==============================================
+
+[DRAFT — review with counsel before shipping. Plain-language intent below, not final legal text.]
+
+Copyright (c) AlgoVoi. All rights reserved.
+
+This file (`epi_verify.py`) is the AlgoVoi `.epi` verifier, supplied as part of the licensed AlgoVoi
+Records Vault `.epi` export add-on. It is a *redistributable* component, granted on the following
+terms.
+
+1. GRANT. AlgoVoi grants the licensed Records Vault customer (the "Licensee"), and any party to whom
+   the Licensee provides an AlgoVoi `.epi` artifact (a "Recipient" — e.g. an auditor, regulator,
+   counterparty, or court), a non-exclusive, royalty-free, worldwide right to:
+     (a) use and run this verifier; and
+     (b) copy and redistribute this verifier, unmodified and with this notice intact, together with
+         the `.epi` artifacts it is used to verify,
+   SOLELY for the purpose of verifying AlgoVoi `.epi` compliance-evidence artifacts.
+
+2. RESTRICTIONS. You may NOT:
+     (a) sell, rent, sublicense, or offer this verifier as a standalone product or service;
+     (b) publish or upload this verifier to any public software package index or public source-code
+         repository (for example PyPI, npm, or a public Git host);
+     (c) modify the verifier and redistribute the modified version, or use it to derive or document
+         the `.epi` artifact format for purposes other than verification;
+     (d) remove or alter this notice, or any AlgoVoi name, mark, or attribution.
+
+3. RESERVED RIGHTS. The `.epi` portable-evidence format and AlgoVoi PQC profile, and all AlgoVoi
+   names and marks, remain the property of AlgoVoi. No rights are granted except those stated above.
+
+4. DEPENDENCIES. This verifier depends only on the public libraries `pqcrypto` and `rfc8785`, which
+   are licensed separately by their own authors under their own terms.
+
+5. NO WARRANTY. THIS VERIFIER IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+   AND NON-INFRINGEMENT. IN NO EVENT SHALL ALGOVOI BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+   LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THIS VERIFIER OR ITS USE.
+
+Contact: chopmob@gmail.com

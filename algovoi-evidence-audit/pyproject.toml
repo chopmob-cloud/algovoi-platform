@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-evidence-audit"
+version = "0.1.2"
+description = "AlgoVoi Evidence Auditor: batch-verify an archive of signed documents (classical + post-quantum) and produce a signed, tamper-evident audit report your auditor can check with the free verifier."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["audit", "compliance", "digital-signature", "pades", "cades",
+            "post-quantum", "evidence", "records", "verification"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Legal Industry",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security :: Cryptography",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "algovoi-reseal-verify>=0.2.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.4",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/evidence-audit"
+
+[project.scripts]
+av-audit = "algovoi_evidence_audit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

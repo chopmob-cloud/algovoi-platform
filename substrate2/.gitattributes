@@ -1,0 +1,21 @@
+# Line endings and binary safety for substrate2.
+#
+# Two problems this prevents, both of which have actually bitten this codebase:
+#
+# 1. CRLF drift. A Windows checkout with core.autocrlf=true rewrites LF to CRLF, which
+#    changes file bytes. The byte-parity harness LF-normalises before hashing so it is
+#    immune, but nothing else is, and the open conformance corpus lost a reproducible-build
+#    check to exactly this in July 2026. Pin LF in the repository.
+* text=auto eol=lf
+
+# 2. Binary corruption of the RFC 3161 fixture. tests/fixtures/*.der is a REAL timestamp
+#    token; if git ever applied end-of-line translation to it the DER would be corrupted and
+#    the signature would stop verifying. Today it survives only because git's binary
+#    heuristic happens to fire (`git check-attr` reports "unspecified"). That is a guess, not
+#    a rule. Make it a rule.
+*.der binary
+*.b64 -text
+
+# Conformance vectors: the manifest pins per-file sha256 over LF-normalised bytes, so these
+# must never be translated either.
+*.json text eol=lf

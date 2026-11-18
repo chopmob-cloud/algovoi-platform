@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-gateway-hedera"
+version = "0.1.4"
+description = "Hedera chain add-on for the AlgoVoi payment gateway: detect USDC (HTS) settlement via the Hedera Mirror Node REST API with instant finality, emit signed settlement receipts through algovoi-gateway-core."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+dependencies = ["algovoi-gateway-core>=0.1.2", "rfc8785>=0.1.4", "pqcrypto>=0.4.0,<1.0"]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/gateway-hedera"
+
+[project.optional-dependencies]
+custody = ["hiero-sdk-python>=0.1"]
+
+[project.entry-points."algovoi_gateway.providers"]
+hedera = "algovoi_gateway_hedera:provider"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_gateway_hedera"]

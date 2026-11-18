@@ -1,0 +1,16 @@
+# Client deployment of the sealed Recovery Vault appliance.
+# Supply VAULT_UNLOCK_SECRET + VAULT_API_TOKEN from your secret manager (NOT committed).
+# Bind to loopback unless you front it with your own mTLS.
+services:
+  recovery-vault:
+    image: algovoi-recovery-vault:0.1.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8077:8077"
+    environment:
+      VAULT_UNLOCK_SECRET: "${VAULT_UNLOCK_SECRET:?set in your secret manager}"
+      VAULT_API_TOKEN: "${VAULT_API_TOKEN:?set in your secret manager}"
+    volumes:
+      - vault-data:/data
+volumes:
+  vault-data:

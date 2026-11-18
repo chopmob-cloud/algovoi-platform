@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-command-center-scim"
+version = "0.1.1"
+description = "SCIM 2.0 (RFC 7643/7644) auto-provisioning for the AlgoVoi Compliance Command Center. Commercial add-on: licence-gated, auto-discovered by the console, provisions/deprovisions accounts and maps SCIM Groups 1:1 onto the fixed RBAC roles, with every change written to the signed audit chain. No configuration."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["scim", "scim2", "rfc7643", "rfc7644", "provisioning", "okta", "azure-ad", "onelogin", "command-center", "self-hosted"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Web Environment",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+]
+# Runs inside the Compliance Command Center, which already provides FastAPI; declared so the package is
+# self-consistent when installed for standalone testing. The SCIM logic itself is standard-library only.
+dependencies = ["fastapi>=0.100,<1.0"]
+
+# The seam the console scans. Installing this package makes the console mount the SCIM endpoint (behind
+# its own bearer token and the licence gate) with no configuration.
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/command-center-scim"
+
+[project.entry-points."algovoi_command_center.provisioning"]
+scim = "algovoi_command_center_scim:ScimProvisioner"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_command_center_scim*"]

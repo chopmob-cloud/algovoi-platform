@@ -1,0 +1,13 @@
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.pyc
+# runtime / test byproducts and secrets — never commit
+command-center-key.json
+command-center-service-token
+command-center.db
+command-center-containers/
+escrow-key.json
+*.acv
+*.key

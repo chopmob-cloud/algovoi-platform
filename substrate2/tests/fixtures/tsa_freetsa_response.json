@@ -1,0 +1,14 @@
+{
+  "tsa_url": "https://freetsa.org/tsr",
+  "obtained_utc": "2026-07-21",
+  "covers_chain_ref": "sha256:f4a470133f38489836a977dadb69ac42d1281f32ab51da9620ca4e731ff46efe",
+  "chain_seq": 7,
+  "issuer_id": "did:web:algovoi.co.uk",
+  "request_nonce": 3513698072759271021,
+  "serial": 107589376,
+  "policy_oid": "1.2.3.4.1",
+  "gen_time_ms": 1784669514000,
+  "signature_alg": "sha512_ecdsa",
+  "tsa_name": "www.freetsa.org",
+  "bytes": 4642
+}

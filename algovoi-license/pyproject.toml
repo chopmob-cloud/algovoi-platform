@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-license"
+version = "0.1.0"
+description = "Shared offline licence gate for AlgoVoi commercial add-ons (Tier B). Two-line, fail-closed, Falcon-1024 verified, no phone-home."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["algovoi", "licence", "license", "offline", "falcon", "commercial"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries",
+]
+# rfc8785 (JCS) + pqcrypto (Falcon) are SOFT imports (present in a licensed suite); not hard deps, so a
+# lifted standalone install lacking them fails closed rather than pulling heavy crypto onto the mirror.
+dependencies = []
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/license"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_license*"]

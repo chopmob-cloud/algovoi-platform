@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-command-center-totp"
+version = "0.1.2"
+description = "TOTP (RFC 6238) authenticator-app second factor for the AlgoVoi Compliance Command Center. Commercial add-on: licence-gated, auto-discovered by the console, with scannable-QR enrollment. No configuration."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["totp", "mfa", "2fa", "rfc6238", "command-center", "self-hosted", "authenticator"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Web Environment",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+]
+# segno (pure-Python, no dependencies) renders the enrollment QR; the TOTP maths stays standard-library.
+dependencies = ["segno>=1.5"]
+
+# The seam the console scans. Installing this package makes the console offer TOTP with no config.
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/command-center-totp"
+
+[project.entry-points."algovoi_command_center.auth_factors"]
+totp = "algovoi_command_center_totp:TotpFactor"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_command_center_totp*"]

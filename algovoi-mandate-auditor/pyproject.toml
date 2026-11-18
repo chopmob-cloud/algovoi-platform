@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-mandate-auditor"
+version = "0.1.2"
+description = "Mandate Auditor Suite -- build and verify self-contained retention-chain audit reports for algovoi-payment-mandate charge histories. Any party can verify a downloaded audit pack offline with no AlgoVoi infrastructure."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["mandate", "audit", "retention-chain", "compliance", "agentic-payments", "mica", "dora"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "algovoi-payment-mandate>=0.1.0",
+    "algovoi-retention-chain>=0.1.0",
+    "fastapi>=0.110,<1.0",
+    "pydantic>=2.5,<3.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+]
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27,<1.0"]
+
+[project.scripts]
+algovoi-mandate-auditor = "algovoi_mandate_auditor.service:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["algovoi_mandate_auditor"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

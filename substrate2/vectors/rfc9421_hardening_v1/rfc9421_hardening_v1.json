@@ -1,0 +1,445 @@
+{
+  "name": "rfc9421_hardening_v1",
+  "description": "RFC 9421 Hardening Profile conformance vectors: parser strictness, coverage policy, algorithm binding, freshness/replay, mode pin and base64/signature malleability. One positive control plus one negative vector per attack class.",
+  "spec": "draft-hopley-x402-rfc9421-binding + RFC 9421 + RFC 9530",
+  "keypair": {
+    "seed_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae3d55",
+    "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41",
+    "keyid": "did:web:api.algovoi.co.uk"
+  },
+  "created": 1750000000,
+  "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41",
+  "vectors": [
+    {
+      "id": "positive_baseline",
+      "description": "Well-formed RFC 9421 signature over method/authority/path/content-digest/created.",
+      "attack_class": "none",
+      "profile_control": "RC-8",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "require_content_digest": true
+      },
+      "expect": {
+        "valid": true
+      }
+    },
+    {
+      "id": "body_swapped",
+      "description": "Body altered after signing; Content-Digest no longer matches the body.",
+      "attack_class": "body_binding",
+      "profile_control": "RC-2",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3939393939397d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "require_content_digest": true
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "content-digest"
+      }
+    },
+    {
+      "id": "content_digest_not_covered",
+      "description": "Body present and require_content_digest, but content-digest is not a covered component.",
+      "attack_class": "body_binding",
+      "profile_control": "RC-2",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:1YdZLGuMBiqTAkm56cSmXUMsLazm821c9tkLlE9tAYHmVQCQSgiOhHgHe2+iruPpNJaSZ6ACkBtQwU7cB+tZCA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "require_content_digest": true
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "covered"
+      }
+    },
+    {
+      "id": "duplicate_alg_param",
+      "description": "Second alg parameter appended (last-wins downgrade ambiguity).",
+      "attack_class": "parser_strictness",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\";alg=\"weak-hmac\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "duplicate"
+      }
+    },
+    {
+      "id": "duplicate_created_param",
+      "description": "Second created parameter appended.",
+      "attack_class": "parser_strictness",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\";created=1",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "duplicate"
+      }
+    },
+    {
+      "id": "duplicate_covered_component",
+      "description": "A covered component (@method) listed twice (RFC 9421 \u00a72.1 violation).",
+      "attack_class": "parser_strictness",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "duplicate"
+      }
+    },
+    {
+      "id": "multiple_signatures",
+      "description": "A second attacker-controlled signature member appended to Signature-Input.",
+      "attack_class": "parser_strictness",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\", evil=(\"@method\");created=1;keyid=\"attacker\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "multiple"
+      }
+    },
+    {
+      "id": "label_mismatch",
+      "description": "Signature-Input label differs from Signature label (label not in signing base).",
+      "attack_class": "parser_strictness",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sigX=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "match"
+      }
+    },
+    {
+      "id": "noncanonical_base64_signature",
+      "description": "Signature re-encoded with non-zero base64 pad bits; decodes to identical bytes.",
+      "attack_class": "malleability",
+      "profile_control": "RC-9",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAB==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "canonical"
+      }
+    },
+    {
+      "id": "missing_alg",
+      "description": "alg parameter stripped (downgrade-by-omission).",
+      "attack_class": "algorithm_binding",
+      "profile_control": "RC-6",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "alg"
+      }
+    },
+    {
+      "id": "disallowed_alg",
+      "description": "Valid ed25519 signature but caller pins allowed_algorithms to exclude ed25519.",
+      "attack_class": "algorithm_binding",
+      "profile_control": "RC-6",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "allowed_algorithms": [
+          "ecdsa-p256-sha256"
+        ]
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "allowed"
+      }
+    },
+    {
+      "id": "stale_created",
+      "description": "created far in the past; caller enforces a 300s max-age window.",
+      "attack_class": "freshness",
+      "profile_control": "RC-4",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750010000,
+        "max_age_seconds": 300
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "age"
+      }
+    },
+    {
+      "id": "future_created",
+      "description": "created beyond the allowed skew into the future.",
+      "attack_class": "freshness",
+      "profile_control": "RC-4",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750010000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:3ZnXY5UoPDAHbgWz89FwsjQZsNdAW/uXaBpcolCNiDdehIvwzFeeUzLo71oXzwmIm9wWJFLEYXsGoCI3i2PDCQ==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000000,
+        "require_created": true
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "future"
+      }
+    },
+    {
+      "id": "replayed_nonce",
+      "description": "Single-use nonce already recorded by the caller's store.",
+      "attack_class": "freshness",
+      "profile_control": "RC-4",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\";nonce=\"nonce-replay-001\"",
+          "signature": "sig=:+ZKqzflJEN+LL1zmLWjbyjIcUmsJxcYWbNLJXfH+WnrPMtXy44oy0OrinyVMRZ+YAY3d6y//vaGSEF1fK0r7Cg==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "__nonce_seen__": "replayed"
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "replay"
+      }
+    },
+    {
+      "id": "required_component_missing",
+      "description": "Signature omits @authority and @path; caller requires all three request-line components.",
+      "attack_class": "coverage_policy",
+      "profile_control": "RC-1",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:j4tz1TxaaJkj/jxydolKvnKyPtuaEd0IcILxLuHcOJOhYohsggIK0/RL8xQ8gjGo64mntYuDHgT/k2f12qidBQ==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "require_content_digest": true,
+        "required_components": [
+          "@method",
+          "@authority",
+          "@path"
+        ],
+        "__requires_kwarg__": "required_components"
+      },
+      "expect": {
+        "valid": false,
+        "reason_contains": "required"
+      }
+    },
+    {
+      "id": "unknown_mode",
+      "description": "Caller passes an unknown signing-base mode.",
+      "attack_class": "mode_pin",
+      "profile_control": "RC-7",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/compliance/screen",
+        "scheme": "https",
+        "headers": {
+          "host": "api.algovoi.co.uk",
+          "content-digest": "sha-256=:r2FS2f/zTZNePRNHayw6BgY9yJHd3EYFBM7MvDj2HS4=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:wzc27eK0HQ9EN2lK/2P6iIM6pupe79HYzWuNIJHRdMkmyMYE7Da3MvZ4K8LaxixAx1zrQmDqRUANFI89SC6sAA==:"
+        },
+        "body_hex": "7b226167656e745f6964223a2262656e63682d6167656e742d303031222c22616d6f756e74223a3130307d"
+      },
+      "verify_args": {
+        "now": 1750000005,
+        "mode": "totally-made-up"
+      },
+      "expect": {
+        "valid": false
+      }
+    }
+  ]
+}

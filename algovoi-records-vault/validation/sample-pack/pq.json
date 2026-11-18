@@ -1,0 +1,9 @@
+{
+  "integrity_attestation": {
+    "attested_at": "2026-06-15T02:00:00Z",
+    "chain": "records_vault_archive",
+    "head": "sha256:demo-head-not-real",
+    "rows": 10421
+  },
+  "section": "PQ"
+}

@@ -1,0 +1,9 @@
+{
+  "component_versions": {
+    "algovoi-doc-archive": "0.1.0",
+    "algovoi-records-vault": "0.4.0"
+  },
+  "installed_at": "2026-06-15T18:07:35Z",
+  "sbom_ref": "artifacts/sbom.cdx.json",
+  "section": "IQ"
+}

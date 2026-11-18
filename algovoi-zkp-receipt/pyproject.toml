@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-zkp-receipt"
+version = "0.1.1"
+description = "ZKP-bound receipt submission and attestation for agentic x402 payments."
+readme = "README.md"
+license = { text = "BUSL-1.1" }
+authors = [
+    { name = "AlgoVoi", email = "hello@algovoi.co.uk" },
+]
+keywords = [
+    "algovoi", "zkp", "receipt", "x402", "agentic-payments", "post-quantum",
+    "falcon-1024", "bulletproofs", "attestation", "pqc",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+verify = [
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+serve = [
+    "fastapi>=0.111,<1.0",
+    "uvicorn[standard]>=0.29,<1.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "mypy>=1.10",
+    "build>=1.2",
+    "twine>=5.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.2",
+    "algovoi-bpverify>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/zkp-receipt"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_zkp_receipt"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/README.md", "/CHANGELOG.md", "/LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:pydantic.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "RUF"]
+ignore = ["E501"]

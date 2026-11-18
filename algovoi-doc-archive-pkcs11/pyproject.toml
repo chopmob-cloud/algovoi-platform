@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-doc-archive-pkcs11"
+version = "0.1.2"
+description = "PKCS#11 (HSM) key custody for the AlgoVoi Verifiable Archive. Hold your Falcon-1024 signing key and ML-KEM encryption key wrapped by an HSM-resident key; AlgoVoi only ever holds the wrapped blob. Keys are unwrapped via the HSM only at sign/decrypt time and zeroized after. Works with any PKCS#11 HSM (SoftHSM, Luna, nCipher, CloudHSM). The signed/encrypted output is unchanged, so verification is unaffected."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["pkcs11", "hsm", "softhsm", "luna", "ncipher", "byok", "key-custody", "post-quantum", "falcon", "ml-kem"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.4",
+    "algovoi-doc-archive>=0.1.0",
+    "python-pkcs11>=0.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "cryptography>=50.0.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_doc_archive_pkcs11"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

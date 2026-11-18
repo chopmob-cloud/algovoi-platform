@@ -1,0 +1,21 @@
+{
+  "section": "OQ",
+  "suites": [
+    {
+      "failed": 0,
+      "name": "records_vault",
+      "passed": 283,
+      "result_digest": "sha256:demo-not-a-real-run",
+      "run_at": "2026-06-15T01:00:00Z",
+      "total": 283
+    },
+    {
+      "failed": 0,
+      "name": "jcs_conformance_vectors",
+      "passed": 77,
+      "result_digest": "sha256:demo",
+      "run_at": "2026-06-15T01:05:00Z",
+      "total": 77
+    }
+  ]
+}

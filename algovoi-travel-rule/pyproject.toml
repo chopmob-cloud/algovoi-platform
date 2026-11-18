@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-travel-rule"
+version = "0.1.2"
+description = "FATF Travel Rule (Recommendation 16) as a signed, no-PII, post-quantum-confidential evidence flow — IVMS101 exchange + offline-verifiable Travel Rule receipts. Commercial OEM SDK for Substrate 2."
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+license = { text = "BUSL-1.1" }
+dependencies = [
+    "pydantic>=2.5,<3.0",
+    "rfc8785>=0.1.4",
+    "substrate2>=2.0.0,<3.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "cryptography>=50.0.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/travel-rule"
+
+[project.optional-dependencies]
+service = ["fastapi>=0.110,<1.0", "uvicorn>=0.27,<1.0"]
+dev = ["pytest>=8.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_travel_rule"]

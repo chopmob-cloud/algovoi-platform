@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-reseal"
+version = "0.2.1"
+description = "Quantum-seal the signed documents you already have: verify the classical signature today, then bind that verification into a post-quantum, RFC-3161 timestamped, offline-verifiable attestation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["post-quantum", "falcon", "ml-dsa", "rfc3161", "timestamp",
+            "digital-signature", "long-term-preservation", "eidas", "cades",
+            "pades", "evidence", "compliance", "archive", "crypto-agility"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Legal Industry",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security :: Cryptography",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "algovoi-reseal-verify>=0.2.0",
+    "rfc8785>=0.1.4",
+    "pqcrypto>=0.4.0,<1.0",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/reseal"
+
+[project.scripts]
+av-reseal = "algovoi_reseal.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

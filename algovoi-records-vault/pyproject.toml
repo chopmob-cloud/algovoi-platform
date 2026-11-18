@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-records-vault"
+version = "0.5.3"
+description = "Regulated-records preservation on the AlgoVoi PQC Verifiable Archive: migration on-ramp (bridge / store) from filesystem, SQLite, and S3-compatible stores, Falcon-1024-signed reconciliation manifests, drift detection, the RecordsVault facade, plus the Phase-1 evidence layer — RFC-3161 trusted timestamping, a read-access audit log, and legal holds — each an offline-verifiable signed-chain stream. Composes algovoi-doc-archive — no cryptography reimplemented."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["records", "preservation", "migration", "post-quantum", "archive", "compliance", "legal-hold"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "substrate2>=2.0.0,<3.0",
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.4",
+    "algovoi-doc-archive>=0.1.0",
+]
+
+[project.optional-dependencies]
+s3 = ["boto3>=1.34"]
+serve = ["fastapi>=0.110,<1.0", "uvicorn>=0.29,<1.0"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27,<1.0"]
+
+[project.scripts]
+algovoi-records-vault-serve = "algovoi_records_vault.serve:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_records_vault"]

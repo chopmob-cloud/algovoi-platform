@@ -1,0 +1,4 @@
+include README.md LICENSE NOTICE THIRD_PARTY_NOTICES.md
+recursive-include src/algovoi_reseal *.py
+recursive-exclude tests *
+global-exclude *.pyc __pycache__ *.json reseal-keys.json

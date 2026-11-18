@@ -1,0 +1,108 @@
+{
+  "description": "retention_chain_rfc9421_v1 \u2014 RFC 9421 signed receipts with retention chain refs",
+  "issuer_id": "algovoi:test",
+  "keypair": {
+    "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41",
+    "seed_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae3d55",
+    "keyid": "did:web:api.algovoi.co.uk"
+  },
+  "created": 1750000000,
+  "vectors": [
+    {
+      "description": "receipt 0 - genesis",
+      "chain_seq": 0,
+      "issuer_id": "algovoi:test",
+      "prev_receipt_hash": "",
+      "receipt_hash": "sha256:11a29e65246009584220f0f5294af8463587eacfe2b68d2c7690b6c81cad6075",
+      "retention_chain_ref": "sha256:432f578d800940c20ec847792fce7222a0dcddc6f2ea2c01b0c35db52f96072a",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/v1/receipts",
+        "headers": {
+          "content-digest": "sha-256=:EaKeZSRgCVhCIPD1KUr4RjWH6s/ito0sdpC2yBytYHU=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:smhUOadU959cSP8B36oEfMYBjPjbbLX4zPz1Qp1Jms4Oj5doOwsx+cmvrmtY89zFrYLZsJ/Abiv2FtuWsIbBAg==:"
+        },
+        "body_hex": "7b22616d6f756e74223a3130302c2263757272656e6379223a22555344222c227061796d656e745f6964223a227061795f303031227d",
+        "body_json": {
+          "payment_id": "pay_001",
+          "amount": 100,
+          "currency": "USD"
+        }
+      },
+      "keypair": {
+        "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41"
+      },
+      "expect": {
+        "signature_valid": true,
+        "chain_ref_valid": true,
+        "valid": true
+      }
+    },
+    {
+      "description": "receipt 1 - chain link",
+      "chain_seq": 1,
+      "issuer_id": "algovoi:test",
+      "prev_receipt_hash": "sha256:11a29e65246009584220f0f5294af8463587eacfe2b68d2c7690b6c81cad6075",
+      "receipt_hash": "sha256:f8e9c63b35836c310d01a794471a9989fbf96e9a8fa08a49da231d47f2632584",
+      "retention_chain_ref": "sha256:f78ff031bb66a0d3587825954f6881622a22f0bb495891bb5412ab39300a6e0b",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/v1/receipts",
+        "headers": {
+          "content-digest": "sha-256=:+OnGOzWDbDENAaeURxqZifv5bpqPoIpJ2iMdR/JjJYQ=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:kYZjl4k9VwJw6ONwzCzpj4TevoUrMICKeKQhRcD5OdyuuifnNkfWknDvDUeLiYW8TMYxx4AEqoDYzfLVBaTwAA==:"
+        },
+        "body_hex": "7b22616d6f756e74223a3230302c2263757272656e6379223a22555344222c227061796d656e745f6964223a227061795f303032227d",
+        "body_json": {
+          "payment_id": "pay_002",
+          "amount": 200,
+          "currency": "USD"
+        }
+      },
+      "keypair": {
+        "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41"
+      },
+      "expect": {
+        "signature_valid": true,
+        "chain_ref_valid": true,
+        "valid": true
+      }
+    },
+    {
+      "description": "receipt 2 - chain link",
+      "chain_seq": 2,
+      "issuer_id": "algovoi:test",
+      "prev_receipt_hash": "sha256:f8e9c63b35836c310d01a794471a9989fbf96e9a8fa08a49da231d47f2632584",
+      "receipt_hash": "sha256:c3fb09fe3fc625ab2f1c26ca3325f36341b47dc9c8da9d2e822a8630df025485",
+      "retention_chain_ref": "sha256:88fe880c4158aea4804e904438b1a977441223813e5fc11510c6e520c971cb5d",
+      "http": {
+        "method": "POST",
+        "authority": "api.algovoi.co.uk",
+        "path": "/v1/receipts",
+        "headers": {
+          "content-digest": "sha-256=:w/sJ/j/GJasvHCbKMyXzY0G0fcnI2p0ugiqGMN8CVIU=:",
+          "signature-input": "sig=(\"@method\" \"@authority\" \"@path\" \"content-digest\" \"created\");created=1750000000;keyid=\"did:web:api.algovoi.co.uk\";alg=\"ed25519\"",
+          "signature": "sig=:VXqKeiOm7dn6+qRrN+UNXR8MRC06zHn7eFWbOghU8Eb5QSNISpwnp5y8b91XeMXeUgcUr7KllXpfr6RsBKbqBQ==:"
+        },
+        "body_hex": "7b22616d6f756e74223a3330302c2263757272656e6379223a22555344222c227061796d656e745f6964223a227061795f303033227d",
+        "body_json": {
+          "payment_id": "pay_003",
+          "amount": 300,
+          "currency": "USD"
+        }
+      },
+      "keypair": {
+        "public_key_hex": "700e2ce7c4b674427eab27ba820bcf6f0faebe68e09fe8564292114e41dc6a41"
+      },
+      "expect": {
+        "signature_valid": true,
+        "chain_ref_valid": true,
+        "valid": true
+      }
+    }
+  ]
+}

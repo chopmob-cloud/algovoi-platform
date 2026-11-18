@@ -1,0 +1,16 @@
+# substrate2 is tracked in the PRIVATE platform repo (AlgoVoi-Hand) for deploy
+# reproducibility. The package code is byte-identical to the open substrate's output, so it
+# is safe to version. These internal docs stay LOCAL-ONLY — never committed, even to a
+# private repo (they are the most sensitive: clean-room provenance + commercial strategy):
+COMPARISON.md
+GTM-PRICING.md
+ORDER-FORM-TEMPLATE.md
+COMMERCIAL-LICENCE-AGREEMENT-TEMPLATE.md
+STAGING-MIRROR-RUNBOOK.md
+
+# Build / cache artefacts
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/

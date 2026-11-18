@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-records-vault-epi"
+version = "0.1.1"
+description = "AlgoVoi Records Vault — .epi portable-evidence export add-on. Export a Records Vault evidence set as a portable, post-quantum (Falcon-1024) .epi artifact your auditor verifies offline; includes a redistributable verifier. Commercial add-on; runtime-licensed, fail-closed."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [
+  { name = "AlgoVoi", email = "chopmob@gmail.com" },
+]
+keywords = ["epi", "post-quantum", "falcon", "compliance-evidence", "records-vault", "portable-evidence", "add-on"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Legal Industry",
+  "Intended Audience :: Healthcare Industry",
+  "License :: Other/Proprietary License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = [
+  "substrate2>=2.0.0,<3.0",
+  "algovoi-doc-archive>=0.1.1",
+  "pqcrypto>=0.4.0,<1.0",
+  "rfc8785>=0.1.4",
+]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/records-vault-epi"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_records_vault_epi*"]
+
+[tool.setuptools.package-data]
+algovoi_records_vault_epi = ["verifier/epi_verify.py", "verifier/LICENSE.txt", "verifier/README.md"]

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-gateway-voi"
+version = "0.1.5"
+description = "Voi chain add-on for the AlgoVoi payment gateway: detect native VOI settlement via the AVM indexer with instant finality, emit signed settlement receipts through algovoi-gateway-core."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+dependencies = ["algovoi-gateway-core>=0.1.2", "rfc8785>=0.1.4", "pqcrypto>=0.4.0,<1.0"]
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/chains/voi"
+
+[project.optional-dependencies]
+custody = ["py-algorand-sdk>=2.0"]
+
+[project.entry-points."algovoi_gateway.providers"]
+voi = "algovoi_gateway_voi:provider"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_gateway_voi"]

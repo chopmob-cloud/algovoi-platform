@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-agent-passport"
+version = "0.3.2"
+description = "Agent Passport — issue and verify Falcon-1024 (PQC) trust credentials for AI agents: bind an agent identity to scopes and spend limits, verify before granting spend authority, revoke. Standalone deployable app with a pluggable store; signing key injected, no infrastructure dependency."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["agent", "credential", "passport", "post-quantum", "falcon", "pqc", "authorization"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "fastapi>=0.110,<1.0",
+    "pydantic>=2.5,<3.0",
+    "rfc8785>=0.1.4",
+    "pqcrypto>=0.4.0,<1.0",
+]
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27,<1.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_agent_passport"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"THIRD-PARTY-NOTICES.md" = "algovoi_agent_passport/THIRD-PARTY-NOTICES.md"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

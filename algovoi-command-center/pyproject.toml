@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "algovoi-command-center"
+version = "0.4.18"
+description = "AlgoVoi Compliance Command Center — self-hosted compliance management: ingest evidence packs, re-verify every signed chain offline, posture dashboard, auditor-pack export. Every figure proven, not asserted. Commercial; runtime-licensed."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["compliance", "grc", "post-quantum", "verifiable-evidence", "self-hosted", "records-vault", "command-center"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Web Environment",
+  "Intended Audience :: Legal Industry",
+  "Intended Audience :: Healthcare Industry",
+  "License :: Other/Proprietary License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = [
+  "fastapi>=0.110,<1.0",
+  "uvicorn>=0.29,<1.0",
+  "substrate2>=2.0.0,<3.0",
+  "pqcrypto>=0.4.0,<1.0",
+  "rfc8785>=0.1.4",
+  "python-multipart>=0.0.9",
+]
+
+[project.scripts]
+algovoi-command-center = "algovoi_command_center.app:main"
+
+[project.urls]
+Homepage = "https://docs.algovoi.co.uk/command-center"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["algovoi_command_center*"]
+
+[project.optional-dependencies]
+ldap = ["ldap3>=2.9"]
+kms = ["algovoi-doc-archive-kms>=0.1.1"]
+vault = ["algovoi-doc-archive-vault>=0.1.1"]
+pkcs11 = ["algovoi-doc-archive-pkcs11>=0.1.1"]
+postgres = ["psycopg[binary]>=3.1"]

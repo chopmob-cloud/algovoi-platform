@@ -1,0 +1,24 @@
+{
+  "product": "AlgoVoi Records Vault",
+  "version": "0.2.0",
+  "pack_type": "offline-verifiable-evidence",
+  "public_key_kid": "8bd26d25651adb39",
+  "signature_alg": "Falcon-1024 (FN-DSA-1024)",
+  "encryption_alg": "ML-KEM-1024 + AES-256-GCM",
+  "canonicalization": "RFC 8785 (JCS)",
+  "chains": {
+    "archive_chain.json": 1,
+    "tsa_chain.json": 1,
+    "access_chain.json": 2,
+    "holds_chain.json": 1
+  },
+  "files": {
+    "access_chain.json": "sha256:6e278a5903c84d09bcbee6a6be3f653f300e990fad7af5faabb39062174d976a",
+    "archive_chain.json": "sha256:382338607d13afc4620509186fd695b82b84fcb7b2eca159057d693a7d8fff0f",
+    "holds_chain.json": "sha256:33ab60ca383fe3514d3228416fbe0a4dd0fd5effa72620d559758ed10b228dbd",
+    "public_key.b64": "sha256:3fec039db2019cdafa404f148950fc45c9c5cf2b96df9de0690ac2f61797a674",
+    "record_blob.bin": "sha256:7f4a8ccdcc09cc8941fab57840934f9d986f7ec621a1ff830dfd5c5a7de28e2e",
+    "tsa_chain.json": "sha256:16d3710aaef0dee15bc031162e283b2c9ac82a3314c6e7f398905359ec6d4338",
+    "verify_evidence_pack.py": "sha256:47fb28bc1ac0db81fc953dd2d6cd9eb83666ee9805a4adff11d07f45b98f2ade"
+  }
+}

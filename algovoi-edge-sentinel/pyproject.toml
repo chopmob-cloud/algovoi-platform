@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-edge-sentinel"
+version = "0.1.3"
+description = "Edge Sentinel — verifiable runtime edge defence for agentic payment infrastructure. IP/geo/ASN blocking, rate/velocity limiting, identity allow-deny, and replay/nonce/freshness checks, where every allow/deny is a Falcon-1024 (optionally hybrid ML-DSA-65) signed, content-addressed, hash-linked decision the Compliance Command Center ingests. Layer 2 of the AlgoVoi security suite (Layer 1 = the deterministic algovoi-substrate-guard input gate)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["edge-security", "geo-blocking", "rate-limiting", "waf", "replay-protection", "agentic-payments", "post-quantum", "verifiable-enforcement"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+]
+dependencies = [
+    "fastapi>=0.110,<1.0",
+    "pydantic>=2.5,<3.0",
+    "rfc8785>=0.1.4",
+    "pqcrypto>=0.4.0,<1.0",
+    "algovoi-agent-passport>=0.3.0",
+]
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+postgres = ["psycopg>=3.1"]
+dev = ["pytest>=8.0", "httpx>=0.27,<1.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_edge_sentinel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

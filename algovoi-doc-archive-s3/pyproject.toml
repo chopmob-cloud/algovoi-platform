@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-doc-archive-s3"
+version = "0.1.1"
+description = "S3 / S3-compatible storage backend for the AlgoVoi Verifiable Archive. A drop-in StorageBackend over Amazon S3, MinIO, Cloudflare R2, Wasabi, Ceph, and any S3-compatible object store (boto3). The archive engine encrypts before storage, so this backend only ever stores ciphertext — same evidence model and same encryption as the local-filesystem backend."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["s3", "archive", "object-storage", "minio", "r2", "wasabi", "tamper-evident", "worm"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "pqcrypto>=0.4.0,<1.0",
+    "rfc8785>=0.1.4",
+    "algovoi-doc-archive>=0.1.0",
+    "boto3>=1.34",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_doc_archive_s3"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"THIRD-PARTY-NOTICES.md" = "algovoi_doc_archive_s3/THIRD-PARTY-NOTICES.md"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

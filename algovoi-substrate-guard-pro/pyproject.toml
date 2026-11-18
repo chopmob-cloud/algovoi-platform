@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "algovoi-substrate-guard-pro"
+version = "0.1.2"
+description = "Substrate Guard (Pro) — verifiable admission control for the JCS canonicalization substrate. Deterministic input-bounds gate run BEFORE canonicalization (size/depth/keys/array/string/nodes/number-safety + a fuzzer-driven UTF-8/lone-surrogate string-safety bound), with each ADMIT/REJECT recorded as a Falcon-1024 (optionally hybrid ML-DSA-65) signed, content-addressed, hash-linked decision the Compliance Command Center ingests. The commercial parent of the open algovoi-substrate-guard lite tier."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BUSL-1.1" }
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["substrate-guard", "input-validation", "dos-hardening", "canonicalization", "jcs", "rfc8785", "admission-control", "post-quantum"]
+classifiers = [
+    "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "fastapi>=0.110,<1.0",
+    "pydantic>=2.5,<3.0",
+    "rfc8785>=0.1.4",
+    "pqcrypto>=0.4.0,<1.0",
+    "algovoi-substrate>=0.4.0",
+    "algovoi-agent-passport>=0.3.0",
+]
+
+[project.optional-dependencies]
+serve = ["uvicorn>=0.29,<1.0"]
+postgres = ["psycopg>=3.1"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27,<1.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/algovoi_substrate_guard_pro"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
