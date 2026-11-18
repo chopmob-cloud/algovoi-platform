@@ -25,6 +25,20 @@ class GatewayEngine:
     def __init__(self, ledger: SettlementLedger | None = None) -> None:
         self.ledger = ledger or SettlementLedger.generate()
         self._intents: dict[str, dict] = {}
+        # Single-use guardrail decisions: decision_ref -> consumed_at_ms. A signed ALLOW is a
+        # one-shot authority; replaying it must not settle twice. Process-local by design — it
+        # stops replay within a running engine, not across a restart or a second worker.
+        self._consumed_decisions: dict[str, int] = {}
+
+    def _consume_decision(self, ref: str | None) -> None:
+        if not ref:
+            raise AuthorizationRequired("authorizing decision has no decision_ref")
+        now = _now_ms()
+        cutoff = now - 25 * 60 * 60 * 1000          # decisions expire well before this
+        self._consumed_decisions = {k: v for k, v in self._consumed_decisions.items() if v >= cutoff}
+        if ref in self._consumed_decisions:
+            raise AuthorizationRequired("authorizing decision already used")
+        self._consumed_decisions[ref] = now
 
     def chains(self) -> list[dict]:
         """The installed chains and their capabilities (receive-only vs payout)."""
@@ -89,6 +103,7 @@ class GatewayEngine:
                                        amount_minor=amount_minor, pay_to=pay_to)
             if not res.ok:
                 raise AuthorizationRequired(f"payout not authorized: {res.reason}")
+            self._consume_decision(res.decision_ref)
             authorized_by_ref = res.decision_ref
         elif decision_receipt and guardrail_public_key is not None:
             # not required, but if a decision is supplied and valid, bind it (best-effort provenance)
